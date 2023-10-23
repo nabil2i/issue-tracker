@@ -42,5 +42,5 @@ export async function DELETE(
       where: { id: issue.id }
     })
 
-    return NextResponse.json({}, { status: 404});
+    return NextResponse.json({});
 }
