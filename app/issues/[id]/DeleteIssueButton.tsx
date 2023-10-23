@@ -1,5 +1,6 @@
 "use client";
 
+import { Spinner } from "@/app/components";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -13,21 +14,27 @@ import { useState } from "react";
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const deleteIssue = async () => {
     try {
+      setIsDeleting(true);
       await axios.delete("/api/issues/" + issueId);
       router.push("/issues");
       router.refresh();
     } catch (error) {
+      setIsDeleting(false);
       setError(true);
     }
-  }
+  };
 
   return (
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">Delete Issue</Button>
+          <Button disabled={isDeleting} color="red">
+            Delete Issue {isDeleting && <Spinner />}
+          </Button>
         </AlertDialog.Trigger>
         <AlertDialogContent>
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
@@ -42,10 +49,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
               </Button>
             </AlertDialog.Cancel>
             <AlertDialog.Action>
-              <Button
-                color="red"
-                onClick={deleteIssue}
-              >
+              <Button color="red" onClick={deleteIssue}>
                 Delete Issue
               </Button>
             </AlertDialog.Action>
@@ -58,7 +62,12 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
           <AlertDialog.Description>
             This issue could not be deleted.
           </AlertDialog.Description>
-          <Button variant="soft" color="gray" mt="2" onClick={() => setError(false)}>
+          <Button
+            variant="soft"
+            color="gray"
+            mt="2"
+            onClick={() => setError(false)}
+          >
             OK
           </Button>
         </AlertDialogContent>
