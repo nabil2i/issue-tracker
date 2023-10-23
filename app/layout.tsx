@@ -26,7 +26,9 @@ export default function RootLayout({
       <body
         className={inter.variable}
         suppressHydrationWarning={true}>
-        <Theme appearance="light" accentColor="violet">
+        <Theme
+          // appearance="light"  // causes Extra Attributes warning in the console
+          accentColor="violet">
           <NavBar />
           <main className="p-5">{children}</main>
           {/* <ThemePanel/> */}
