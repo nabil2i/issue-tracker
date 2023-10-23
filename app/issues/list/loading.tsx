@@ -1,12 +1,9 @@
-import prisma from "@/prisma/client";
+import { Skeleton } from "@/app/components";
 import { Table } from "@radix-ui/themes";
-import delay from "delay";
 import IssueActions from "./IssueActions";
-import { IssueStatusBadge, Link}  from "@/app/components";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
-  // await delay(2000);
+const LoadingIssuesPage = () => {
+  const issues = [1, 2, 3, 4, 5];
 
   return (
     <div>
@@ -25,18 +22,18 @@ const IssuesPage = async () => {
         </Table.Header>
         <Table.Body>
           {issues.map((issue) => (
-            <Table.Row key={issue.id}>
+            <Table.Row key={issue}>
               <Table.Cell>
-                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                <Skeleton />
                 <div className="block md:hidden">
-                  <IssueStatusBadge status={issue.status} />
+                  <Skeleton />
                 </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <IssueStatusBadge status={issue.status} />
+                <Skeleton />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {issue.createdAt.toDateString()}
+                <Skeleton />
               </Table.Cell>
             </Table.Row>
           ))}
@@ -46,7 +43,4 @@ const IssuesPage = async () => {
   );
 };
 
-export const dynamic = "force-dynamic"; // force dynamic rendering
-// export const revalidate = 0; // revalidate  output of the page every 0 second
-
-export default IssuesPage;
+export default LoadingIssuesPage;
