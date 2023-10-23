@@ -1,0 +1,31 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "alx",
+      "database": "arc_dev_db",
+      "username": "arc_dev",
+      "password": "arc_dev_pwd"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MariaDB",
+      "name": "issue-tracker",
+      "username": "root",
+      "password": "nabilnoble",
+      "database": "issue-tracker"
+    }
+  ]
+}
