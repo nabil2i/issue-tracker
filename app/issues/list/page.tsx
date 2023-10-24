@@ -28,8 +28,15 @@ const IssuesPage = async ({ searchParams }: Props) => {
     ? searchParams.status
     : undefined;
 
+  const orderBy = columns
+  .map(column => column.value)
+  .includes(searchParams.orderBy)
+    ? { [searchParams.orderBy] : 'asc' } // [] compute property dynamically at runtime
+    : undefined;
+
   const issues = await prisma.issue.findMany({
     where: { status },
+    orderBy
   });
   // await delay(2000);
 
