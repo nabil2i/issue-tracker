@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
+import QueryClientProdiver from "./QueryClientProdiver";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,17 +28,19 @@ export default function RootLayout({
       <body
         className={inter.variable}
         suppressHydrationWarning={true}>
-        <AuthProvider>
-          <Theme
-            // appearance="light"  // causes Extra Attributes warning in the console
-            accentColor="violet">
-            <NavBar />
-            <main className="p-5">
-              <Container>{children}</Container>
-            </main>
-            {/* <ThemePanel/> */}
-          </Theme>
-        </AuthProvider>
+        <QueryClientProdiver>
+          <AuthProvider>
+            <Theme
+              // appearance="light"  // causes Extra Attributes warning in the console
+              accentColor="violet">
+              <NavBar />
+              <main className="p-5">
+                <Container>{children}</Container>
+              </main>
+              {/* <ThemePanel/> */}
+            </Theme>
+          </AuthProvider>
+        </QueryClientProdiver>
       </body>
     </html>
   );
