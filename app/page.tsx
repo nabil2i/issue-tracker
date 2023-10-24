@@ -1,11 +1,11 @@
 import { Box } from "@radix-ui/themes";
 import Pagination from "./components/Pagination";
+import LatestIssues from "./LatestIssues";
 
-export default function Home({ searchParams }: { searchParams: { page: string }}) {
+export default function Home() {
   return (
   <Box>
-    <div>Hello World!</div>
-    <Pagination itemCount={100} pageSize={10} currentPage={parseInt(searchParams.page)}/>
+    <LatestIssues />
   </Box>
   );
 }
