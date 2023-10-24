@@ -47,7 +47,6 @@ const IssuesPage = async ({ searchParams }: Props) => {
         <Table.Header>
           <Table.Row>
             {columns.map((column) => (
-              // eslint-disable-next-line react/jsx-key
               <Table.ColumnHeaderCell
                 key={column.value}
                 className={column.className}
