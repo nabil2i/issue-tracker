@@ -31,7 +31,6 @@ export default function RootLayout({
         <QueryClientProdiver>
           <AuthProvider>
             <Theme
-              // appearance="light"  // causes Extra Attributes warning in the console
               accentColor="violet">
               <NavBar />
               <main className="p-5">

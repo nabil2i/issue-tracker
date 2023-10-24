@@ -23,7 +23,6 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page.toString());
     router.push("?" + params.toString());
-    // if (searchParams.get())
   };
 
   const pageCount = Math.ceil(itemCount / pageSize);

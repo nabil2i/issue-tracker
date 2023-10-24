@@ -12,8 +12,6 @@ interface Props {
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const statuses = Object.values(Status);
-  // console.log(statuses)
-  // console.log(searchParams.status);
   const status = statuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
@@ -21,7 +19,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   const orderBy = columnNames
     .includes(searchParams.orderBy)
-    ? { [searchParams.orderBy]: "asc" } // [] compute property dynamically at runtime
+    ? { [searchParams.orderBy]: "asc" }
     : undefined;
 
   const page = parseInt(searchParams.page) || 1;
@@ -33,7 +31,6 @@ const IssuesPage = async ({ searchParams }: Props) => {
     skip: (page - 1) * pageSize,
     take: pageSize,
   });
-  // await delay(2000);
 
   const totalIssues = await prisma.issue.count({ where });
 
@@ -52,8 +49,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
   );
 };
 
-export const dynamic = "force-dynamic"; // force dynamic rendering
-// export const revalidate = 0; // revalidate  output of the page every 0 second
+export const dynamic = "force-dynamic";
 
 export default IssuesPage;
 

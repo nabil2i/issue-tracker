@@ -12,7 +12,7 @@ const authOptions: NextAuthOptions = {
     })
   ],
   session: {
-    strategy: 'jwt' // if database stragey doesn't work
+    strategy: 'jwt'
   }
 }
 

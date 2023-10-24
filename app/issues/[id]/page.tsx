@@ -17,12 +17,9 @@ const fetchUser = cache((issueId: number) => prisma.issue.findUnique({where: { i
 
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
-  // if (typeof params.id !== 'number') notFound()
 
   const issue = await fetchUser(parseInt(params.id));
   
-  // delay(2000);
-
   if (!issue) notFound();
 
   return (
@@ -42,7 +39,6 @@ const IssueDetailPage = async ({ params }: Props) => {
   );
 };
 
-
 export async function generateMetadata( { params }: Props) {
   const issue = await fetchUser(parseInt(params.id));
   return {
@@ -50,4 +46,5 @@ export async function generateMetadata( { params }: Props) {
     description: 'Details of issue ' + issue?.id
   }
 }
+
 export default IssueDetailPage;

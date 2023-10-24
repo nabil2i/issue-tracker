@@ -14,10 +14,6 @@ import { Controller, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
 
-// import dynamic from "next/dynamic";
-// const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-//   ssr: false, // not to render on the server
-// });
 
 type IssueFormData = z.infer<typeof createIssueSchema>;
 
@@ -40,10 +36,9 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       if (issue) await axios.patch("/api/issues/" + issue.id, data);
       else await axios.post("/api/issues", data);
       router.push("/issues/list");
-      router.refresh(); // refresh content of current route (/issues)
+      router.refresh();
     } catch (error) {
       setError("An unexpected error occurred.");
-      // console.log(error);
     }
   });
 
