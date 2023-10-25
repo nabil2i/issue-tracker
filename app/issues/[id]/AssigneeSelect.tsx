@@ -33,8 +33,8 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         status: updatedStatus,
       })
       .then(() => {
-        router.refresh()
         toast.success("User assigned.");
+        router.refresh();
       })
       .catch(() => {
         toast.error("Changes could not be saved.");

@@ -5,6 +5,7 @@ import { Status, Issue } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const statuses: { label: string; value?: Status }[] = [
@@ -15,14 +16,13 @@ const statuses: { label: string; value?: Status }[] = [
 
 const StatusSelect = ({ issue }: { issue: Issue }) => {
   const router = useRouter();
- 
+  
   const changeStatus = (status: Status) => {
     // console.log(status)
     axios
       .patch("/api/issues/" + issue.id, { status })
       .then(() => {
         toast.success("Status changed.");
-        router.push("/issues/" + issue.id);
         router.refresh();
       })
       .catch(() => {
@@ -33,7 +33,8 @@ const StatusSelect = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Select.Root
-        defaultValue={issue.status || "Issue Status"}
+        key={issue.status}
+        defaultValue={issue.status}
         onValueChange={changeStatus}
       >
         <Select.Trigger placeholder="Change issue status..." />
