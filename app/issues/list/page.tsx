@@ -10,12 +10,15 @@ interface Props {
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
+  const assignee = searchParams.assignee;
+  const assigneeWhere = assignee ? { assignedToUserId: assignee } : undefined;
+
   const statuses = Object.values(Status);
   searchParams.status;
   const status = statuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
-  const where = { status };
+  const where = { status: status };
 
   const isDescending =
     searchParams.orderBy && searchParams.orderBy.startsWith("-");
@@ -35,23 +38,72 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   const page = parseInt(searchParams.page) || 1;
   const pageSize = parseInt(searchParams.pageSize) || 10;
+  let totalIssues;
 
-  const issues = await prisma.issue.findMany({
-    where,
-    orderBy,
-    skip: (page - 1) * pageSize,
-    take: pageSize,
-  });
+  // const issues = assigneeWhere
+  // ? await prisma.issue.findMany({
+  //     where: {
+  //       AND: [
+  //         where,
+  //         assigneeWhere
+  //       ]
+  //     },
+  //     orderBy,
+  //     skip: (page - 1) * pageSize,
+  //     take: pageSize,
+  //   })
+  // : await prisma.issue.findMany({
+  //   where,
+  //   orderBy,
+  //   skip: (page - 1) * pageSize,
+  //   take: pageSize,
+  // });
 
-  const totalIssues = await prisma.issue.count({ where });
+  let issues;
+  if (assigneeWhere && where) {
+    issues = await prisma.issue.findMany({
+      where: {
+        AND: [where, assigneeWhere],
+      },
+      orderBy,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
+    totalIssues = await prisma.issue.count({
+      where: {
+        AND: [where, assigneeWhere],
+      },
+    });
+  }
+  if (!assigneeWhere && where) {
+    issues = await prisma.issue.findMany({
+      where,
+      orderBy,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
+    totalIssues = await prisma.issue.count({ where });
+  }
+  if (assigneeWhere && !where) {
+    issues = await prisma.issue.findMany({
+      where: assigneeWhere,
+      orderBy,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    });
+    totalIssues = await prisma.issue.count({ where: assigneeWhere });
+  }
+
+  // const totalIssues = await prisma.issue.count({ where });
+  // console.log(totalIssues);
 
   return (
     <Flex direction="column" gap="3">
       <IssueActions />
-      <IssueTable searchParams={searchParams} issues={issues} />
+      <IssueTable searchParams={searchParams} issues={issues!} />
       <Flex justify="center">
         <Pagination
-          itemCount={totalIssues}
+          itemCount={totalIssues!}
           pageSize={pageSize}
           currentPage={page}
         />

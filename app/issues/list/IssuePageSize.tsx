@@ -18,6 +18,8 @@ const IssuePageSize = () => {
           const params = new URLSearchParams();
           if (searchParams.get("status"))
             params.append("status", searchParams.get("status")!);
+          if (searchParams.get("assignee"))
+            params.append("assignee", searchParams.get("assignee")!);
           if (searchParams.get("orderBy"))
             params.append("orderBy", searchParams.get("orderBy")!);
           if (size) params.append("pageSize", size);

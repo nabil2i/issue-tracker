@@ -62,7 +62,14 @@ const IssueTable = ({ searchParams, issues }: Props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {issues.map((issue) => (
+          {issues.length === 0 ? (
+            <Table.Row>
+              <Table.Cell colSpan={3} className="text-center">
+                Nothing to show
+              </Table.Cell>
+            </Table.Row>
+          ) : (
+          issues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.Cell>
                 <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
@@ -77,7 +84,7 @@ const IssueTable = ({ searchParams, issues }: Props) => {
                 {issue.createdAt.toDateString()}
               </Table.Cell>
             </Table.Row>
-          ))}
+          )))}
         </Table.Body>
       </Table.Root>
     </>

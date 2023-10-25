@@ -39,7 +39,7 @@ const IssueAssigneeFilter = () => {
         <Select.Content>
           <Select.Item value="">All</Select.Item>
           {users?.map((user) => (
-            <Select.Item key={user.id} value={user.name || ""}>
+            <Select.Item key={user.id} value={user.id || ""}>
               {user.name}
             </Select.Item>
           ))}
