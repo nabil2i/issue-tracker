@@ -8,6 +8,7 @@ export interface IssueQuery {
   status: Status;
   orderBy: keyof Issue;
   page: string;
+  pageSize: string;
 }
 
 interface Props {
@@ -43,13 +44,13 @@ const IssueTable = ({ searchParams, issues }: Props) => {
                 >
                   {column.label}
                 </NextLink>             
-                {column.value === searchParams.orderBy.replace(/^-/, "") && (
+                {searchParams.orderBy && column.value === searchParams.orderBy.replace(/^-/, "") && (
                   isDescending ? <ArrowDownIcon className="inline" /> : <ArrowUpIcon className="inline" />
                 )}              
                 {column.value === defaultOrderBy && !searchParams.orderBy && (
                   <ArrowUpIcon className="inline" />
                 )}
-                {column.value !== searchParams.orderBy.replace(/^-/, "") && (
+                {searchParams.orderBy && column.value !== searchParams.orderBy.replace(/^-/, "") && (
                   <ArrowLeftIcon className="inline" /> // Display horizontal arrow for non-active columns
                 )}
                 {/* {column.value === searchParams.orderBy && (
