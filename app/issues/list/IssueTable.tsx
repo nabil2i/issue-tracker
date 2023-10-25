@@ -1,6 +1,6 @@
 import { IssueStatusBadge, Link } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
-import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, ArrowLeftIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 
@@ -17,7 +17,8 @@ interface Props {
 
 const IssueTable = ({ searchParams, issues }: Props) => {
   const isDescending = searchParams.orderBy && searchParams.orderBy.startsWith("-");
-  console.log("isDescending: ", isDescending);
+  // console.log("isDescending: ", isDescending);
+  const defaultOrderBy = "title";
 
   return (
     <>
@@ -41,10 +42,16 @@ const IssueTable = ({ searchParams, issues }: Props) => {
                   }}
                 >
                   {column.label}
-                </NextLink>
+                </NextLink>             
                 {column.value === searchParams.orderBy.replace(/^-/, "") && (
                   isDescending ? <ArrowDownIcon className="inline" /> : <ArrowUpIcon className="inline" />
                 )}              
+                {column.value === defaultOrderBy && !searchParams.orderBy && (
+                  <ArrowUpIcon className="inline" />
+                )}
+                {column.value !== searchParams.orderBy.replace(/^-/, "") && (
+                  <ArrowLeftIcon className="inline" /> // Display horizontal arrow for non-active columns
+                )}
                 {/* {column.value === searchParams.orderBy && (
                   <ArrowUpIcon className="inline" />
                 )} */}

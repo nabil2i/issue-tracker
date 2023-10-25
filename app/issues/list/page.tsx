@@ -26,8 +26,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
     if (isDescending) orderBy = { [validOrderBy]: "desc" };
     else orderBy = { [searchParams.orderBy]: "asc" };
   } else orderBy = undefined;
-
-  console.log("orderBy: ", orderBy)
+  // console.log("orderBy: ", orderBy)
 
   // const orderBy = columnNames
   //   .includes(searchParams.orderBy)
