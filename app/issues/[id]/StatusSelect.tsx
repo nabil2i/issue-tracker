@@ -33,10 +33,10 @@ const StatusSelect = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Select.Root
-        defaultValue={issue.status}
+        defaultValue={issue.status || "Issue Status"}
         onValueChange={changeStatus}
       >
-        <Select.Trigger placeholder="Assign..." />
+        <Select.Trigger placeholder="Change issue status..." />
         <Select.Content>
           <Select.Group>
             <Select.Label>Change Issue Status</Select.Label>
