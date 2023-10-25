@@ -1,26 +1,38 @@
-
+import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
-import IssueActions from "./IssueActions";
-import Pagination from "@/app/components/Pagination";
-import IssueTable, { IssueQuery, columnNames } from "./IssueTable";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
+import IssueActions from "./IssueActions";
+import IssueTable, { IssueQuery, columnNames } from "./IssueTable";
 interface Props {
   searchParams: IssueQuery;
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const statuses = Object.values(Status);
+  searchParams.status;
   const status = statuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
   const where = { status };
 
-  const orderBy = columnNames
-    .includes(searchParams.orderBy)
-    ? { [searchParams.orderBy]: "asc" }
-    : undefined;
+  const isDescending =
+    searchParams.orderBy && searchParams.orderBy.startsWith("-");
+  let orderBy;
+  const validOrderBy =
+    searchParams.orderBy && searchParams.orderBy.replace(/^-/, "");
+  if (columnNames.includes(validOrderBy as any)) {
+    if (isDescending) orderBy = { [validOrderBy]: "desc" };
+    else orderBy = { [searchParams.orderBy]: "asc" };
+  } else orderBy = undefined;
+
+  console.log("orderBy: ", orderBy)
+
+  // const orderBy = columnNames
+  //   .includes(searchParams.orderBy)
+  //   ? { [searchParams.orderBy]: "asc" }
+  //   : undefined;
 
   const page = parseInt(searchParams.page) || 1;
   const pageSize = 10;
@@ -54,6 +66,6 @@ export const dynamic = "force-dynamic";
 export default IssuesPage;
 
 export const metadata: Metadata = {
-  title: 'Issue Tracker - Issue List',
-  description: 'View all project issues'
-}
+  title: "Issue Tracker - Issue List",
+  description: "View all project issues",
+};
