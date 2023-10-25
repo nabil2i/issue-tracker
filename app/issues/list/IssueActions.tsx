@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import IssueStatusFilter from './IssueStatusFilter'
 import IssuePageSize from './IssuePageSize'
+import IssueAssigneeFilter from './IssueAssigneeFilter'
 
 
 const IssueActions = () => {
@@ -10,6 +11,7 @@ const IssueActions = () => {
     <Flex justify='between'>
       <Flex gap="2">
         <IssueStatusFilter />
+        <IssueAssigneeFilter />
         <IssuePageSize />
       </Flex>
       <Button>
