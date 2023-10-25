@@ -10,6 +10,7 @@ import authOptions from "@/app/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
 import { cache }from "react";
 import StatusSelect from "./StatusSelect";
+import IssueComment from "./IssueComment";
 
 interface Props {
   params: { id: string };
@@ -25,9 +26,15 @@ const IssueDetailPage = async ({ params }: Props) => {
 
   return (
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
-      <Box className="md:col-span-4">
+      <Flex direction="column" className="md:col-span-4" gap="3">
         <IssueDetails issue={issue} />
-      </Box>
+        <Box>
+          <IssueComment />
+          {/* {issue.comments.map((comment) => (
+            <IssueComment key={comment.id} comment={comment} />
+          ))} */}
+        </Box>
+      </Flex>
       {session &&
         <Box>
           <Flex direction="column" gap="4">

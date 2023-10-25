@@ -24,3 +24,12 @@ body {
     @apply text-zinc-500 hover:text-zinc-800 transition-colors
   }
 }
+
+.comment-container {
+
+}
+
+.comment-line {
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px; 
+}
