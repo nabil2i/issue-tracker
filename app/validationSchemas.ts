@@ -19,3 +19,8 @@ export const commentIssueSchema = z.object({
   // issueId: z.number().min(1, 'IssueId is required.').optional(),
   userId: z.string().min(1, 'UserId is required.').max(255)
 });
+
+export const registrationSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(5)
+});
