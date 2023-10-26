@@ -13,15 +13,17 @@ import {
   Flex,
   Popover,
   Text,
-  TextArea,
 } from "@radix-ui/themes";
+import axios from "axios";
 import "easymde/dist/easymde.min.css";
-import { useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import SimpleMDE from "react-simplemde-editor";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
+  ssr: false,
+});
 
 type CommentFormData = z.infer<typeof commentIssueSchema>;
 
@@ -47,7 +49,7 @@ const CommentForm = ({ details }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const router = useRouter();
   const issueId = details.issue.id;
-  
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
@@ -57,7 +59,7 @@ const CommentForm = ({ details }: Props) => {
       router.refresh();
     } catch (error) {
       setError("An unexpected error occurred.");
-      console.log(error)
+      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -70,7 +72,7 @@ const CommentForm = ({ details }: Props) => {
   const handlePopoverClose = () => {
     setIsPopoverOpen(false);
   };
-  
+
   return (
     <div>
       {error && (
@@ -79,11 +81,7 @@ const CommentForm = ({ details }: Props) => {
         </Callout.Root>
       )}
       <form className="space-y-3" onSubmit={onSubmit}>
-        <input
-          type="hidden"
-          {...register('userId')}
-          value={details.user.id}
-        />
+        <input type="hidden" {...register("userId")} value={details.user.id} />
         <Popover.Root open={isPopoverOpen} onOpenChange={handlePopoverOpen}>
           <Popover.Trigger>
             <Button variant="soft">
@@ -109,34 +107,35 @@ const CommentForm = ({ details }: Props) => {
                   name="text"
                   control={control}
                   render={({ field }) => (
-                    <SimpleMDE placeholder="Write yout comment..." {...field} 
-                    options={{
-                      autofocus: true,
-                      spellChecker: false,
-                      renderingConfig: {
-                        codeSyntaxHighlighting: true,
-                      },
-                      toolbar: [
-                        "bold",
-                        "italic",
-                        "heading",
-                        "strikethrough",
-                        "|",
-                        "code",
-                        "quote",
-                        "|",
-                        "unordered-list",
-                        "ordered-list",
-                        "|",
-                        "link",
-                        "image",
-                        "|",
-                        "preview",
-                        "side-by-side",
-                        "fullscreen",
-                      ],
-                      
-                    }}
+                    <SimpleMDE
+                      placeholder="Write yout comment..."
+                      {...field}
+                      options={{
+                        autofocus: true,
+                        spellChecker: false,
+                        renderingConfig: {
+                          codeSyntaxHighlighting: true,
+                        },
+                        toolbar: [
+                          "bold",
+                          "italic",
+                          "heading",
+                          "strikethrough",
+                          "|",
+                          "code",
+                          "quote",
+                          "|",
+                          "unordered-list",
+                          "ordered-list",
+                          "|",
+                          "link",
+                          "image",
+                          "|",
+                          "preview",
+                          "side-by-side",
+                          "fullscreen",
+                        ],
+                      }}
                     />
                   )}
                 />
