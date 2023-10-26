@@ -16,7 +16,7 @@ const IssueStatusFilter = () => {
   const searchParams = useSearchParams();
 
   return (
-    <Flex align="center" gap="2">
+    <Flex align="center" gap="2" justify="between">
       <Text>Filter by status: </Text>
       <Select.Root
         defaultValue={searchParams.get('status') || ''}

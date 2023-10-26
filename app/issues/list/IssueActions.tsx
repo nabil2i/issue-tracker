@@ -8,8 +8,8 @@ import IssueAssigneeFilter from './IssueAssigneeFilter'
 
 const IssueActions = () => {
   return (
-    <Flex justify='between'>
-      <Flex gap="2">
+    <Flex justify='between' gap="3">
+      <Flex gap="2" direction={{ initial: "column", sm: "row"}}>
         <IssueStatusFilter />
         <IssueAssigneeFilter />
         <IssuePageSize />

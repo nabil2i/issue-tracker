@@ -17,7 +17,7 @@ const IssueAssigneeFilter = () => {
   if (error) return null;
 
   return (
-    <Flex align="center" gap="2">
+    <Flex align="center" gap="2" justify="between">
       <Text>Filter by assignee: </Text>
       <Select.Root
         defaultValue={searchParams.get('assignee') || ''}

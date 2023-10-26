@@ -10,7 +10,7 @@ const IssuePageSize = () => {
   const searchParams = useSearchParams();
 
   return (
-    <Flex align="center" gap="2">
+    <Flex align="center" gap="2" justify="between">
       <Text>Page Size: </Text>
       <Select.Root
         defaultValue={searchParams.get('pageSize') || '10'}
