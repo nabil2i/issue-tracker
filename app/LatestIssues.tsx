@@ -15,7 +15,14 @@ const LatestIssues = async () => {
       <Heading size="4" mb="5">Latest Issues</Heading>
       <Table.Root>
         <Table.Body>
-          {latestIssues.map((issue) => (
+        {latestIssues.length === 0 ? (
+            <Table.Row>
+              <Table.Cell colSpan={3} className="text-center">
+                Nothing to show
+              </Table.Cell>
+            </Table.Row>
+          ) : (
+          latestIssues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.Cell>
                 <Flex justify="between">
@@ -36,7 +43,7 @@ const LatestIssues = async () => {
                 </Flex>
               </Table.Cell>
             </Table.Row>
-          ))}
+          )))}
         </Table.Body>
       </Table.Root>
     </Card>

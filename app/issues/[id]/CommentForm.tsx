@@ -49,11 +49,12 @@ const CommentForm = ({ details }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const router = useRouter();
   const issueId = details.issue.id;
+  const userId = details.user ? details.user.id : null;
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
-      if (issueId) await axios.post(`/api/issues/${issueId}/comments`, data);
+      if (issueId && userId) await axios.post(`/api/issues/${issueId}/comments`, { ...data, userId });
       reset();
       setIsPopoverOpen(false);
       router.refresh();
@@ -81,7 +82,7 @@ const CommentForm = ({ details }: Props) => {
         </Callout.Root>
       )}
       <form className="space-y-3" onSubmit={onSubmit}>
-        <input type="hidden" {...register("userId")} value={details.user.id} />
+        { userId && <input type="hidden" {...register("userId")} value={userId} />}
         <Popover.Root open={isPopoverOpen} onOpenChange={handlePopoverOpen}>
           <Popover.Trigger>
             <Button variant="soft">
@@ -93,7 +94,7 @@ const CommentForm = ({ details }: Props) => {
             <Flex gap="3">
               <Avatar
                 size="2"
-                src={details.user.image!}
+                src={details.user?.image || ''}
                 fallback="A"
                 radius="full"
               />

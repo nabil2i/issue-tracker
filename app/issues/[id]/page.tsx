@@ -16,17 +16,20 @@ import StatusSelect from "./StatusSelect";
 interface Props {
   params: { id: string };
 }
-const fetchUser = cache((issueId: number) =>
+const fetchIssue = cache((issueId: number) =>
   prisma.issue.findUnique({ where: { id: issueId } })
 );
 
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
-  const sessionUser = await prisma.user.findUnique({
-    where: { email: session?.user?.email! },
-  });
+  let sessionUser: User | null = null;
+  if (session?.user?.email) {
+    sessionUser = await prisma.user.findUnique({
+      where: { email: session?.user?.email! },
+    });
+  }
 
-  const issue = await fetchUser(parseInt(params.id));
+  const issue = await fetchIssue(parseInt(params.id));
 
   if (!issue) notFound();
 
@@ -64,7 +67,7 @@ const IssueDetailPage = async ({ params }: Props) => {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const issue = await fetchUser(parseInt(params.id));
+  const issue = await fetchIssue(parseInt(params.id));
   return {
     title: issue?.title,
     description: "Details of issue " + issue?.id,
