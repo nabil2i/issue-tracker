@@ -20,6 +20,8 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import SimpleMDE from "react-simplemde-editor";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type CommentFormData = z.infer<typeof commentIssueSchema>;
 
@@ -36,19 +38,29 @@ const CommentForm = ({ details }: Props) => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  // } = useForm<CommentFormData>({ resolver: zodResolver(commentIssueSchema) });
-  } = useForm();
+  } = useForm<CommentFormData>({ resolver: zodResolver(commentIssueSchema) });
+  // } = useForm();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const router = useRouter();
+  const issueId = details.issue.id;
   
-  const onSubmit = handleSubmit((data) => {
-    // console.log('onSubmit function called');
-    // console.log('Form data:', data);
-    setIsSubmitting(true);
-    setIsSubmitting(false);
-    setIsPopoverOpen(false);
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      if (issueId) await axios.post(`/api/issues/${issueId}/comments`, data);
+      reset();
+      setIsPopoverOpen(false);
+      router.refresh();
+    } catch (error) {
+      setError("An unexpected error occurred.");
+      console.log(error)
+    } finally {
+      setIsSubmitting(false);
+    }
   });
 
   const handlePopoverOpen = () => {
@@ -67,11 +79,6 @@ const CommentForm = ({ details }: Props) => {
         </Callout.Root>
       )}
       <form className="space-y-3" onSubmit={onSubmit}>
-      <input
-          type="hidden"
-          {...register('issueId')}
-          value={details.issue.id}
-        />
         <input
           type="hidden"
           {...register('userId')}
@@ -113,6 +120,10 @@ const CommentForm = ({ details }: Props) => {
                         "bold",
                         "italic",
                         "heading",
+                        "strikethrough",
+                        "|",
+                        "code",
+                        "quote",
                         "|",
                         "unordered-list",
                         "ordered-list",
@@ -124,11 +135,12 @@ const CommentForm = ({ details }: Props) => {
                         "side-by-side",
                         "fullscreen",
                       ],
+                      
                     }}
                     />
                   )}
                 />
-                {/* <ErrorMessage>{errors.text?.message}</ErrorMessage> */}
+                <ErrorMessage>{errors.text?.message}</ErrorMessage>
                 <Flex gap="3" mt="3" justify="between">
                   {/* <Flex align="center" gap="2" asChild>
                     <Text as="label" size="2">

@@ -1,3 +1,4 @@
+import PostDate from "@/app/components/PostDate";
 import prisma from "@/prisma/client";
 import { Avatar, Flex, Text, Box } from "@radix-ui/themes";
 
@@ -9,7 +10,7 @@ const IssueComment = async ({ issueId }: { issueId: string }) => {
 
   return (
     <>
-      {/* <div className="comment-container"> */}
+      <div className="comment-container">
         {comments.map((comment) => (
           <Box key={comment.id}>
             <Flex gap="3" mb="5" mt="5">
@@ -26,10 +27,10 @@ const IssueComment = async ({ issueId }: { issueId: string }) => {
                   <Text size="3" className="font-bold">
                     {comment.user.name}
                   </Text>
-
-                  <Text size="2" color="gray">
+                  <PostDate date={comment.createdAt} />
+                  {/* <Text size="2" color="gray">
                     {comment.createdAt.toDateString()}
-                  </Text>
+                  </Text> */}
                 </Flex>
                 <Text size="2">{comment.text}</Text>
               </Flex>
@@ -37,7 +38,7 @@ const IssueComment = async ({ issueId }: { issueId: string }) => {
             <div className="comment-line"></div>
           </Box>
         ))}
-      {/* </div> */}
+      </div>
     </>
   );
 };
