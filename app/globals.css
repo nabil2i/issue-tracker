@@ -33,3 +33,7 @@ body {
   border-bottom: 1px solid #ccc;
   margin-top: 10px; 
 }
+
+.CodeMirror {
+  max-height: 150px;
+}

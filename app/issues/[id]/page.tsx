@@ -11,6 +11,8 @@ import AssigneeSelect from "./AssigneeSelect";
 import { cache }from "react";
 import StatusSelect from "./StatusSelect";
 import IssueComment from "./IssueComment";
+import CommentForm from "./CommentForm";
+import { User } from "@prisma/client";
 
 interface Props {
   params: { id: string };
@@ -19,16 +21,26 @@ const fetchUser = cache((issueId: number) => prisma.issue.findUnique({where: { i
 
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
+  const sessionUser = await prisma.user.findUnique({ where: { email: session?.user?.email!} })
+
 
   const issue = await fetchUser(parseInt(params.id));
   
   if (!issue) notFound();
 
+  const details = {
+    issue: issue,
+    user: sessionUser as User
+  }
+
   return (
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
       <Flex direction="column" className="md:col-span-4" gap="3">
         <IssueDetails issue={issue} />
-        <Box>
+        <Flex justify="start">
+          <CommentForm details={details} />
+        </Flex>
+        <Box >
           <IssueComment />
           {/* {issue.comments.map((comment) => (
             <IssueComment key={comment.id} comment={comment} />
