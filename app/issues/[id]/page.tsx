@@ -37,14 +37,11 @@ const IssueDetailPage = async ({ params }: Props) => {
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
       <Flex direction="column" className="md:col-span-4" gap="3">
         <IssueDetails issue={issue} />
-        <Flex >
+        <Flex direction="column" display={{ initial: "none", sm: "flex"}}>
           <CommentForm details={details} />
-        </Flex>
-        <Box >
           <IssueComment issueId={String(issue.id)} />
-          {/* {issue.comments.map((comment) => (
-            <IssueComment key={comment.id} comment={comment} />
-          ))} */}
+        </Flex>
+        <Box>
         </Box>
       </Flex>
       {session &&
@@ -56,6 +53,10 @@ const IssueDetailPage = async ({ params }: Props) => {
             <DeleteIssueButton issueId={issue.id} />
           </Flex>
         </Box>}
+        <Flex direction="column" display={{ initial: "flex", sm: "none"}}>
+          <CommentForm details={details} />
+          <IssueComment issueId={String(issue.id)} />
+        </Flex>
     </Grid>
   );
 };
