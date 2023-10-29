@@ -21,6 +21,36 @@ export const commentIssueSchema = z.object({
 });
 
 export const registrationSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(5)
+  firstName: z.string(),
+  lastName: z.string(),
+  name: z.string(),
+  email: z.string().email().min(8).max(255),
+  password: z.string().min(5),
+  password2: z.string().min(5).optional(),
+});
+
+export const emailSchema = z.object({
+  email: z.string().email().min(8).max(255),
+});
+
+
+export const detailsSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+});
+
+export const passwordSchema = z.object({
+  password: z.string().min(5),
+  password2: z.string().min(5).optional()
+});
+
+export const registerSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().min(8).max(255),
+  password: z.string().min(5),
+});
+
+export const loginSchema = z.object({
+  email: z.string().email().min(8).max(255),
+  password: z.string().min(5),
 });

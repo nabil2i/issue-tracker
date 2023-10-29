@@ -3,13 +3,14 @@
 import {
   Avatar,
   Box,
+  Button,
   Container,
   DropdownMenu,
   Flex,
   Text,
 } from "@radix-ui/themes";
 import classNames from "classnames";
-import { useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
@@ -66,28 +67,38 @@ const AuthStatus = () => {
 
   if (status === "loading") return <Skeleton width="3rem"/>;
 
-  if (status === "unauthenticated")
-    return <Link className="nav-link" href="/api/auth/signin">Log in</Link>
+  if (status === "unauthenticated") {
+    return (
+      < Flex align="center" gap="3">
+        <Button className='var(--accent-9)' variant="ghost" onClick={() => signIn()}>Log In</Button>
+        <Button className='var(--accent-9)' onClick={() => console.log("sign up")}><Link href="/register">Sign up</Link></Button>
+      </Flex>
+      // return <Link className="nav-link" href="/api/auth/signin">Log in</Link>
+    )
+  }
 
   return (
     <Box>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Avatar
-            src={session!.user!.image!}
-            fallback="?"
-            size="2"
-            radius="full"
-            className="cursor-pointer"
-            referrerPolicy="no-referrer"
-          />
+          <Box>
+            <Avatar
+              src={session!.user!.image!}
+              fallback={session!.user!.name!.slice(0,1)}
+              size="2"
+              radius="full"
+              className="cursor-pointer"
+              referrerPolicy="no-referrer"
+            />
+          </Box>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
           <DropdownMenu.Label>
             <Text size="2">{session!.user!.email}</Text>
           </DropdownMenu.Label>
           <DropdownMenu.Item className="cursor-pointer">
-            <Link href="/api/auth/signout">Log out</Link>
+            {/* <Link href="/api/auth/signout">Log out</Link> */}
+            <Button className='var(--accent-9)' onClick={() => signOut()}>Log out</Button>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>

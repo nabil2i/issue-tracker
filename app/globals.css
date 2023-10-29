@@ -37,3 +37,17 @@ body {
 .CodeMirror {
   max-height: 150px;
 }
+
+/**/
+.flexContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
