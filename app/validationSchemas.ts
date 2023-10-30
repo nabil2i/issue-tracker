@@ -41,7 +41,7 @@ export const detailsSchema = z.object({
 
 export const passwordSchema = z.object({
   password: z.string().min(5),
-  password2: z.string().min(5).optional()
+  password2: z.string().min(5)
 });
 
 export const registerSchema = z.object({

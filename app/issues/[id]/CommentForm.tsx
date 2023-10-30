@@ -60,7 +60,7 @@ const CommentForm = ({ details }: Props) => {
       router.refresh();
     } catch (error) {
       setError("An unexpected error occurred.");
-      console.log(error);
+      // console.log(error);
     } finally {
       setIsSubmitting(false);
     }

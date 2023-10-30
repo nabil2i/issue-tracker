@@ -28,26 +28,27 @@ export type RegisterAction = EmailAction | NameAction | PasswordAction | Details
 const registrationReducer = (state: RegistrationData, action: RegisterAction): RegistrationData => {
   switch(action.type) {
     case "UPDATE_EMAIL":
-      return { ...state, email: action.registrationData.email}
-      case "UPDATE_NAME":
-        return {
-          ...state,
-          name: action.registrationData.name
-        };
-      case "UPDATE_PASSWORD":
-        return {
-          ...state,
-          password: action.registrationData.password
-        };
-      case "UPDATE_DETAILS":
-        return {
-          ...state,
-          firstName: action.registrationData.firstName,
-          lastName: action.registrationData.lastName,
-          name: action.registrationData.name,
-        };
-      default:
-        return state;
+      return { ...state, email: action.registrationData.email};
+    case "UPDATE_NAME":
+      return {
+        ...state,
+        name: action.registrationData.name
+      };
+    case "UPDATE_PASSWORD":
+      return {
+        ...state,
+        password: action.registrationData.password,
+        password2: action.registrationData.password2
+      };
+    case "UPDATE_DETAILS":
+      return {
+        ...state,
+        firstName: action.registrationData.firstName,
+        lastName: action.registrationData.lastName,
+        name: action.registrationData.name,
+      };
+    default:
+      return state;
   };
 }
 
@@ -61,6 +62,7 @@ const initialState = {
   lastName: '',
   name: '',
   password: '',
+  password2: '',
 };
 
 const RegistrationProvider = ({ children }: Props) => {
@@ -76,9 +78,8 @@ const RegistrationProvider = ({ children }: Props) => {
     setStep((prevValue) => prevValue - 1);
   }
 
-  console.log(registrationData);
+  // console.log(registrationData);
   
-
   const value: RegistrationContextType = { onBack, onNext, step, registrationData, dispatch };
 
   return (

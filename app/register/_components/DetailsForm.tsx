@@ -27,13 +27,13 @@ const DetailsForm = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log("our data", { data });
+    // console.log("our data", { data });
     // onNext();
     try {
       setSubmitting(true);
       const firstName = data.firstName?.trim();
       const lastName = data.lastName?.trim();
-      const name = firstName + " " + lastName;
+      const name = `${firstName} ${lastName}`;
       dispatch({
         type: "UPDATE_DETAILS",
         registrationData: {

@@ -39,18 +39,22 @@ const EmailForm = () => {
       setSubmitting(true);
       const res = await axios.get("/api/users/" + email);
       // console.log(res);
-      if (res) {
+      if (res.status === 200) {
         setError("User already exists");
         return null;
-      }
+      } 
     } catch (error) {
-      dispatch({
-        type: "UPDATE_EMAIL",
-        registrationData: { ...registrationData, ...data },
-      });
-      // setRegistrationData((prevRegistrationData) => ({...prevRegistrationData, ...data }))
-      onNext();
-      // console.error(error)
+      if (axios.isAxiosError(error) && error.response && error.response.status === 404) {
+        dispatch({
+          type: "UPDATE_EMAIL",
+          registrationData: { ...registrationData, ...data },
+        });
+        // setRegistrationData((prevRegistrationData) => ({...prevRegistrationData, ...data }))
+        onNext();
+      } else {
+        setError("An unexpected error occurred.");
+        // console.error("Error:", error);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -109,7 +113,7 @@ const EmailForm = () => {
             <Link
               style={{ color: "var(--accent-9)" }}
               className="hover:underline"
-              href="/login"
+              href="/auth/signIn"
             >
               Sign in
             </Link>

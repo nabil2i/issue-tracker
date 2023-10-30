@@ -14,7 +14,7 @@ import useRegistrationContext from "../hooks/useRegistrationContext";
 type PasswordFormData = z.infer<typeof passwordSchema>;
 
 const PasswordForm = () => {
-  const { onBack, registrationData, dispatch } = useRegistrationContext();
+  const { onBack, onNext, registrationData, dispatch } = useRegistrationContext();
 
   const {
     register,
@@ -33,24 +33,25 @@ const PasswordForm = () => {
   const password2 = watch("password2");
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log({ data });
+    // console.log({ data });
+    if (password !== password2) {
+      setError("Passwords do not match");
+      setSubmitting(false);
+      return;
+    }
+
+    setSubmitting(true);
     try {
-      if (password !== password2) {
-        setError("Passwords do not match");
-        setSubmitting(false);
-        return;
-      }
-      setSubmitting(true);
       dispatch({
         type: "UPDATE_PASSWORD",
         registrationData: {
           ...registrationData,
-          ...data,
+          ...data
         },
       });
       // setRegistrationData((prevRegistrationData) => ({...prevRegistrationData, ...data}))
-
-      await axios.post("/api/register/", registrationData);
+      // console.log("data to send", { ...registrationData, ...data })
+      await axios.post("/api/register/", { ...registrationData, ...data });
       router.push("/api/auth/signin");
     } catch (error) {
       setError("An unexpected error occurred.");
