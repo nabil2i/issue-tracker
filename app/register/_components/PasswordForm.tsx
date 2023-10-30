@@ -124,7 +124,7 @@ const PasswordForm = () => {
               // className="bg-var(--accent-9) text-white px-4 py-2 rounded-md"
             >
               Back
-              {isSubmitting && <Spinner />}
+              {/* {isSubmitting && <Spinner />} */}
             </Button>
             <Button
               type="submit"

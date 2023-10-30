@@ -71,6 +71,7 @@ const AuthStatus = () => {
   const [error, setError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
 
   if (status === "loading") return <Skeleton width="3rem" />;
@@ -96,28 +97,9 @@ const AuthStatus = () => {
     );
   }
 
-  const deleteAccount = async () => {
-    try {
-      setIsDeleting(true);
-      const res = await axios.delete("/api/users/" + session?.user?.email);
-      if (res.status === 200) {
-        toast.success("Account deleted.");
-        router.push("/register");
-        router.refresh();
-        signOut();
-      } else {
-        toast.error("Account was not deleted");
-      }
-    } catch (error) {
-      setIsDeleting(false);
-      setError(true);
-      setIsDialogOpen(true);
-      toast.error("Account was not deleted");
-    }
-  };
-
   return (
     <Box>
+      {/* <DropdownMenu.Root onOpenChange={(open) => setIsDropdownOpen(open)}> */}
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Flex align="center" className="cursor-pointer">
@@ -132,70 +114,22 @@ const AuthStatus = () => {
             {/* <CaretDownIcon /> */}
           </Flex>
         </DropdownMenu.Trigger>
+
         <DropdownMenu.Content>
           <DropdownMenu.Label>
             <Text size="2">{session!.user!.email}</Text>
           </DropdownMenu.Label>
+
           <DropdownMenu.Separator />
+
           <DropdownMenu.Item className="cursor-pointer">
-            <Link href="/api/auth/signout">Log out</Link>
-            {/* <Button onClick={() => signOut()}>Log out</Button> */}
+            <Link href="/profile">Profile</Link>
           </DropdownMenu.Item>
 
-          <AlertDialog.Root>
-            <AlertDialog.Trigger>
-              <DropdownMenu.Item className="cursor-pointer mt-2" color="red">
-                Delete Account{isDeleting && <Spinner />}
-              </DropdownMenu.Item>
-            </AlertDialog.Trigger>
-            <AlertDialogContent>
-              <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
-              <AlertDialog.Description>
-                Are you sure you want to delete your account? This action cannot
-                be undone.
-              </AlertDialog.Description>
-              <Flex mt="4" gap="3">
-                <AlertDialog.Cancel>
-                  <Button variant="soft" color="gray">
-                    Cancel
-                  </Button>
-                </AlertDialog.Cancel>
-                <AlertDialog.Action>
-                  <Button color="red" onClick={deleteAccount}>
-                    Delete Account
-                  </Button>
-                </AlertDialog.Action>
-              </Flex>
-            </AlertDialogContent>
-          </AlertDialog.Root>
+          <DropdownMenu.Item className="cursor-pointer">
+            <Link href="/api/auth/signout">Log out</Link>
+          </DropdownMenu.Item>
 
-          <AlertDialog.Root open={isDialogOpen}>
-            <AlertDialogContent>
-              <AlertDialog.Title>Error</AlertDialog.Title>
-              <AlertDialog.Description>
-                This account could not be deleted.
-              </AlertDialog.Description>
-              <Button
-                variant="soft"
-                color="gray"
-                mt="2"
-                onClick={() => {
-                  setError(false);
-                  setIsDialogOpen(false);
-                }}
-              >
-                OK
-              </Button>
-            </AlertDialogContent>
-          </AlertDialog.Root>
-
-          {/* <Button
-              className="menu-btn"
-              variant="outline"
-              onClick={deleteAccount}
-            >
-              Delete Account
-            </Button> */}
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <Toaster />

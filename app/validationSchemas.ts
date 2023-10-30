@@ -29,6 +29,15 @@ export const registrationSchema = z.object({
   password2: z.string().min(5).optional(),
 });
 
+export const updateUserSchema = z.object({
+  // firstName: z.string().optional(),
+  // lastName: z.string().optional(),
+  name: z.string().optional(),
+  email: z.string().email().min(8).max(255).optional(),
+  password: z.string().min(5).optional(),
+  password2: z.string().min(5).optional(),
+});
+
 export const emailSchema = z.object({
   email: z.string().email().min(8).max(255),
 });
@@ -53,4 +62,8 @@ export const registerSchema = z.object({
 export const loginSchema = z.object({
   email: z.string().email().min(8).max(255),
   password: z.string().min(5),
+});
+
+export const userSchema = z.object({
+  email: z.string().email().min(8).max(255),
 });

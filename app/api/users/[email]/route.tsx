@@ -18,7 +18,7 @@ export async function GET(
       });
       if (user) {
         // console.log(user);
-        return NextResponse.json(user, { status: 200 });
+        return NextResponse.json({email: user.email }, { status: 200 });
       } else {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
       }
