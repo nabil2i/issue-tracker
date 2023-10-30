@@ -69,7 +69,7 @@ const SignInPage = () => {
       {/* <div className="h-screen w-screen flex justify-center items-center bg-slate-100"> */}
       {/* <div className="sm:shadow-xl p-4 sm:bg-white rounded-xl"> */}
 
-      <div className="flex justify-center items-center min-h-screen sm:bg-gray-100 p-4">
+      <div className="flex justify-center items-center max-h-screen sm:bg-gray-100 p-4">
         <div className="sm:shadow-xl p-4 sm:bg-white rounded-xl max-w-2xl">
           {error && (
             <Callout.Root color="red" className="mb-3">
