@@ -107,7 +107,7 @@ const EmailForm = () => {
             {isSubmitting && <Spinner />}
           </Button>
         </div>
-        <div className="flex justify-center gap-3">
+        <div className="flex justify-center gap-1">
           <Text>Already have an account?</Text>
           <Box>
             <Link

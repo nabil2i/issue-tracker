@@ -129,7 +129,7 @@ const SignInPage = () => {
                 {isSubmitting && <Spinner />}
               </Button>
             </div>
-            <div className="flex justify-center gap-3">
+            <div className="flex justify-center gap-1">
               <Text>Don&apos;t have an account?</Text>
               <Box>
                 <Link
