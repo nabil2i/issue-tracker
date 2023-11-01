@@ -4,6 +4,7 @@ import React from 'react'
 import IssueStatusFilter from './IssueStatusFilter'
 import IssuePageSize from './IssuePageSize'
 import IssueAssigneeFilter from './IssueAssigneeFilter'
+import IssueDateFilter from './IssueDateFilter'
 
 
 const IssueActions = () => {
@@ -13,6 +14,7 @@ const IssueActions = () => {
         <IssueStatusFilter />
         <IssueAssigneeFilter />
         <IssuePageSize />
+        {/* <IssueDateFilter /> */}
       </Flex>
       <Button>
         <Link href="/issues/new">New Issue</Link>

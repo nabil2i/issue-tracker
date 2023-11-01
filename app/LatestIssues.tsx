@@ -28,7 +28,15 @@ const LatestIssues = async () => {
                 <Flex justify="between">
                   <Flex direction="column" align="start" gap="2">
                     <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
-                    <IssueStatusBadge status={issue.status} />
+                    {/* <IssueStatusBadge status={issue.status} /> */}
+                    <Flex gap="2" align="center">
+                      <div className="block md:hidden">
+                        <IssueStatusBadge status={issue.status} />
+                      </div>
+                      <div className="block md:hidden">
+                        {issue.createdAt.toDateString()}
+                      </div>
+                    </Flex>
                   </Flex>
                   {issue.assignedToUserId && (
                     <Avatar
