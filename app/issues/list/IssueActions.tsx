@@ -1,26 +1,28 @@
-import { Button, Flex } from '@radix-ui/themes'
-import Link from 'next/link'
-import React from 'react'
-import IssueStatusFilter from './IssueStatusFilter'
-import IssuePageSize from './IssuePageSize'
-import IssueAssigneeFilter from './IssueAssigneeFilter'
-import IssueDateFilter from './IssueDateFilter'
-
+import { Button, Flex } from "@radix-ui/themes";
+import Link from "next/link";
+import IssueAssigneeFilter from "./IssueAssigneeFilter";
+import IssueDateOrder from "./IssueDateOrder";
+import IssuePageSize from "./IssuePageSize";
+import IssueStatusFilter from "./IssueStatusFilter";
+import IssueStatusOrder from "./IssueStatusOrder";
 
 const IssueActions = () => {
   return (
-    <Flex justify='between' gap="3">
-      <Flex gap="2" direction={{ initial: "column", sm: "row"}}>
+    <Flex justify="between" gap="3">
+      <Flex gap="2" direction={{ initial: "column", sm: "row" }}>
         <IssueStatusFilter />
         <IssueAssigneeFilter />
         <IssuePageSize />
-        {/* <IssueDateFilter /> */}
+        <Flex direction="column" gap="2" display={{ initial: "flex", sm: "none"  }}>
+          <IssueStatusOrder />
+          <IssueDateOrder />
+        </Flex>
       </Flex>
       <Button>
         <Link href="/issues/new">New Issue</Link>
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default IssueActions
+export default IssueActions;
