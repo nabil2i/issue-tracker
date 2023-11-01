@@ -16,7 +16,7 @@ const IssueComment = async ({ issueId }: { issueId: string }) => {
             <Flex gap="3" mb="5" mt="5">
               <Avatar
                 src={comment.user.image!}
-                fallback="?"
+                fallback={comment.user.name?.slice(0, 1)!}
                 size="3"
                 radius="full"
                 className="cursor-pointer"

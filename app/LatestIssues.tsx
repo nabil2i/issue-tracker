@@ -33,7 +33,7 @@ const LatestIssues = async () => {
                   {issue.assignedToUserId && (
                     <Avatar
                       src={issue.assignedToUser?.image!}
-                      fallback="?"
+                      fallback={issue.assignedToUser?.name?.slice(0, 1)!}
                       size="2"
                       radius="full"
                       className="cursor-pointer"
