@@ -31,6 +31,7 @@ import EditName from "./_components/EditName";
 import EditEmail from "./_components/EditEmail";
 import EditPassword from "./_components/EditPassword";
 import AccountTab from "./_components/AccountTab";
+import ProfileProvider from "./_components/ProfileProvider";
 
 
 const AccountPage = () => {
@@ -46,7 +47,9 @@ const AccountPage = () => {
 
         <Box px="4" pt="3" pb="2">
           <Tabs.Content value="account">
-            <AccountTab />
+            <ProfileProvider>
+              <AccountTab />
+            </ProfileProvider>
           </Tabs.Content>
 
           {/* <Tabs.Content value="documents">

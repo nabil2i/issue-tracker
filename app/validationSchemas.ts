@@ -21,9 +21,9 @@ export const commentIssueSchema = z.object({
 });
 
 export const registrationSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  name: z.string(),
+  firstName: z.string().min(3).max(20),
+  lastName: z.string().min(3).max(20),
+  name: z.string().min(3).max(20),
   email: z.string().email().min(8).max(255),
   password: z.string().min(5),
   password2: z.string().min(5).optional(),
@@ -32,10 +32,10 @@ export const registrationSchema = z.object({
 export const updateUserSchema = z.object({
   // firstName: z.string().optional(),
   // lastName: z.string().optional(),
-  name: z.string().optional(),
-  email: z.string().email().min(8).max(255).optional(),
-  password: z.string().min(5).optional(),
-  password2: z.string().min(5).optional(),
+  name: z.string().min(3, "Name must be at least 3 characters.").max(20, "Name must be at most 20 characters.").optional(),
+  email: z.string().email().min(8, "Email must be at least 8 characters.").max(255).optional(),
+  password: z.string().min(5, "Password must be at least 5 characters.").optional(),
+  password2: z.string().min(5, "Password must be at least 5 characters.").optional(),
 });
 
 export const emailSchema = z.object({
@@ -44,8 +44,8 @@ export const emailSchema = z.object({
 
 
 export const detailsSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  firstName: z.string().min(3).max(20),
+  lastName: z.string().min(3).max(20),
 });
 
 export const passwordSchema = z.object({
@@ -54,7 +54,7 @@ export const passwordSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  name: z.string().optional(),
+  name: z.string().min(3).max(20).optional(),
   email: z.string().email().min(8).max(255),
   password: z.string().min(5),
 });

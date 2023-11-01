@@ -83,10 +83,10 @@ const PasswordForm = () => {
                   value: 5,
                   message: "Password must be at least 5 characters.",
                 },
-                maxLength: {
-                  value: 20,
-                  message: "Password must be at most 255 characters.",
-                },
+                // maxLength: {
+                //   value: 20,
+                //   message: "Password must be at most 255 characters.",
+                // },
               })}
               className="w-full border rounded-md p-2"
             />
@@ -106,10 +106,10 @@ const PasswordForm = () => {
                   value: 5,
                   message: "Password must be at least 5 characters.",
                 },
-                maxLength: {
-                  value: 20,
-                  message: "Password must be at most 255 characters.",
-                },
+                // maxLength: {
+                //   value: 20,
+                //   message: "Password must be at most 255 characters.",
+                // },
               })}
               className="w-full border rounded-md p-2"
             />

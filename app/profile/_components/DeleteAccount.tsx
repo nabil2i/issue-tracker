@@ -1,38 +1,27 @@
 "use client";
 
-import { Skeleton, Spinner } from "@/app/components";
-import { User } from "@prisma/client";
+import { Spinner } from "@/app/components";
 import {
   AlertDialog,
   AlertDialogContent,
-  Avatar,
   Box,
   Button,
-  Container,
-  DropdownMenu,
   Flex,
-  Text,
-  Tabs,
 } from "@radix-ui/themes";
 import axios from "axios";
-import classNames from "classnames";
-import { Session } from "next-auth";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { AiFillBug } from "react-icons/ai";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
-
-// const DeleteAccount = ({ user, setUser }: { user: User, setUser:  Dispatch<SetStateAction<User>>}) => {
-const DeleteAccount = ({ user}: { user: User}) => {
-  const { status, data: session, update } = useSession();
+const DeleteAccount = () => {
+  // const DeleteAccount = ({ user, setUser }: { user: User, setUser:  Dispatch<SetStateAction<User>>}) => {
+  // const DeleteAccount = ({ user}: { user: User}) => {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const deleteAccount = async () => {
     try {
@@ -43,7 +32,7 @@ const DeleteAccount = ({ user}: { user: User}) => {
         router.push("/register");
         router.refresh();
         signOut();
-      } 
+      }
       // else {
       //   toast.error("Account was not deleted");
       // }
@@ -67,15 +56,12 @@ const DeleteAccount = ({ user}: { user: User}) => {
         <AlertDialogContent>
           <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
           <AlertDialog.Description>
-            Are you sure you want to delete your account? This action cannot
-            be undone.
+            Are you sure you want to delete your account? This action cannot be
+            undone.
           </AlertDialog.Description>
           <Flex mt="4" gap="3">
             <AlertDialog.Cancel>
-              <Button
-                variant="soft"
-                color="gray"
-              >
+              <Button variant="soft" color="gray">
                 Cancel
               </Button>
             </AlertDialog.Cancel>
@@ -107,7 +93,7 @@ const DeleteAccount = ({ user}: { user: User}) => {
         </AlertDialogContent>
       </AlertDialog.Root>
     </Box>
-  )
-}
+  );
+};
 
-export default DeleteAccount
+export default DeleteAccount;

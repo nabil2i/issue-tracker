@@ -112,10 +112,9 @@ export async function PATCH(request: NextRequest) {
         where: { email: userEmail },
       });
       if (!user) {
-        // console.log(user);
         return NextResponse.json({ error: "Invalid user" }, { status: 404 });
       } else {
-        console.log(user)
+        // console.log(user)
         let hashedPassword = user.hashedPassword;
         if (password ) {
           hashedPassword = await bcrypt.hash(password, 5);

@@ -72,8 +72,8 @@ const DetailsForm = () => {
             {...register("firstName", {
               required: "First name is required",
               minLength: {
-                value: 5,
-                message: "First name must be at least 5 characters.",
+                value: 3,
+                message: "First name must be at least 3 characters.",
               },
               maxLength: {
                 value: 20,
@@ -95,8 +95,8 @@ const DetailsForm = () => {
             {...register("lastName", {
               required: "Last name is required",
               minLength: {
-                value: 5,
-                message: "Last name must be at least 5 characters.",
+                value: 3,
+                message: "Last name must be at least 3 characters.",
               },
               maxLength: {
                 value: 20,
