@@ -22,6 +22,12 @@ import toast, { Toaster } from "react-hot-toast";
 import { AiFillBug } from "react-icons/ai";
 
 const NavBar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <nav className=" border-b mb-5 px-5 py-3">
       <Container>
@@ -30,6 +36,38 @@ const NavBar = () => {
             <Link href="/">
               <AiFillBug />
             </Link>
+
+            {/* <Button
+              className="block sm:hidden"
+              onClick={toggleMobileMenu}
+            >
+              <svg
+                className="w-6 h-6 text-black cursor-pointer"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+            </Button>
+
+            {isMobileMenuOpen && (
+              <ul className="sm:hidden block bg-white py-3 px-5">
+                {getMobileMenuLinks()}
+              </ul>
+            )}
+
+          
+            <ul className="hidden sm:flex space-x-6">
+              {getNavLinks()}
+            </ul>
+            */}
             <NavLinks />
           </Flex>
           <AuthStatus />
@@ -66,6 +104,27 @@ const NavLinks = () => {
   );
 };
 
+const getNavLinks = () => {
+  // Get regular navigation links
+  // ... (your existing logic)
+};
+
+const getMobileMenuLinks = () => {
+  // Get mobile menu links (for smaller screens)
+  // ... (similar logic to get regular nav links)
+};
+
+
+const Mobile = () => {
+  
+
+
+  return (
+    <div>Mobile</div>
+  )
+}
+
+
 const AuthStatus = () => {
   const { status, data: session } = useSession();
   const [error, setError] = useState(false);
@@ -101,7 +160,7 @@ const AuthStatus = () => {
     <Box>
       {/* <DropdownMenu.Root onOpenChange={(open) => setIsDropdownOpen(open)}> */}
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
+        <DropdownMenu.Trigger> 
           <Flex align="center" className="cursor-pointer">
             <Avatar
               src={session!.user!.image!}

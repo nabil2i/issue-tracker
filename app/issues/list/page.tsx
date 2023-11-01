@@ -20,14 +20,14 @@ const IssuesPage = async ({ searchParams }: Props) => {
     : undefined;
   const where = { status: status };
 
-  console.log(searchParams.orderBy)
+  // console.log(searchParams.orderBy)
   const isDescending =
   searchParams.orderBy && searchParams.orderBy.startsWith("-");
-  console.log(isDescending)
+  // console.log(isDescending)
   let orderBy;
   const validOrderBy =
   searchParams.orderBy && searchParams.orderBy.replace(/^-/, "");
-  console.log(validOrderBy)
+  // console.log(validOrderBy)
   if (columnNames.includes(validOrderBy as any)) {
     if (!isDescending) orderBy = { [validOrderBy]: "desc" };
     else orderBy = { [validOrderBy]: "asc" };

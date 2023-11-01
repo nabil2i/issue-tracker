@@ -30,10 +30,10 @@ const LatestIssues = async () => {
                     <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
                     {/* <IssueStatusBadge status={issue.status} /> */}
                     <Flex gap="2" align="center">
-                      <div className="block md:hidden">
+                      <div >
                         <IssueStatusBadge status={issue.status} />
                       </div>
-                      <div className="block md:hidden">
+                      <div >
                         {issue.createdAt.toDateString()}
                       </div>
                     </Flex>
