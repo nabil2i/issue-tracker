@@ -28,10 +28,10 @@ const DeleteAccount = () => {
       setIsDeleting(true);
       const res = await axios.delete("/api/users/me");
       if (res.status === 200) {
+        signOut();
         toast.success("Account deleted.");
         router.push("/register");
         router.refresh();
-        signOut();
       }
       // else {
       //   toast.error("Account was not deleted");

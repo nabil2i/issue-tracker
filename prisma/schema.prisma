@@ -39,7 +39,7 @@ model Comment {
   userId    String   @db.VarChar(255)
 
   issue Issue @relation(fields: [issueId], references: [id], onDelete: Cascade)
-  user  User  @relation(fields: [userId], references: [id])
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
