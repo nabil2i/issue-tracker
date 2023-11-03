@@ -43,7 +43,7 @@ const IssueDetailPage = async ({ params }: Props) => {
       <Flex direction="column" className="md:col-span-4" gap="3">
         <IssueDetails issue={issue} />
         <Flex direction="column" display={{ initial: "none", sm: "flex" }}>
-          <CommentForm details={details} />
+          {session && <CommentForm details={details} />}
           <IssueComment issueId={String(issue.id)} />
         </Flex>
         <Box></Box>
@@ -59,7 +59,7 @@ const IssueDetailPage = async ({ params }: Props) => {
         </Box>
       )}
       <Flex direction="column" display={{ initial: "flex", sm: "none" }}>
-        <CommentForm details={details} />
+        {session && <CommentForm details={details} />}
         <IssueComment issueId={String(issue.id)} />
       </Flex>
     </Grid>
